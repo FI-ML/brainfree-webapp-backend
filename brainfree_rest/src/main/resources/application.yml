@@ -1,0 +1,58 @@
+server:
+  port: 8087
+
+spring:
+  profiles:
+    active: "dev"
+  application:
+    name: brainfree
+  main:
+    banner-mode: off
+  liquibase:
+    changeLog: "classpath:db.changelog/db.changelog-master.xml"
+---
+#dev
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/brainfree_dev_db
+    username: docker
+    password: '123#qwer'
+    data-source-properties: unspecified
+---
+#prod
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://5.75.133.210:5432/brainfree_prod_db
+    username: docker
+    password: 'BrH7vC@x3*adUkaU'
+    data-source-properties: unspecified
+---
+
+# JPA properties
+jpa:
+hibernate:
+ddl-auto: none
+show-sql: true
+database: postgresql
+database-platform: org.hibernate.dialect.PostgreSQLDialect
+open-in-view: false
+generate-ddl: false
+
+
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  #auth-server-url: https://brainfree.eu/auth
+  ssl-required: external
+  realm: brainfree
+  resource: app-backend
+  bearer-only: true
+  confidential-port: 0
+  use-resource-role-mappings: false
+  principal-attribute: preferred_username
+  cors: true
+
+logging:
+  level:
+    "liquibase": info

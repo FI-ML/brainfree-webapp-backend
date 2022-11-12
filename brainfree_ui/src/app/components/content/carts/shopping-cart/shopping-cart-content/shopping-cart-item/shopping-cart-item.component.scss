@@ -1,0 +1,24 @@
+@import '../../../../../../../assets/variables.scss';
+
+.bg-transparent {
+  color: black;
+}
+
+.btn-delete:hover {
+  background-color: $hover-color;
+
+  .mat-icon {
+    color: red;
+  }
+}
+
+.mat-form-field {
+  width: 70px;
+  height: inherit;
+}
+
+.btn-delete {
+  margin-top: 2%;
+  background-color: $primary-color;
+}
+

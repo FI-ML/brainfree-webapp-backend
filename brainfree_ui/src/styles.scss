@@ -1,0 +1,43 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: "Sure Sans Pro";
+  src: url("/assets/fonts/SourceSansPro-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Sure Sans Pro";
+  src: url("/assets/fonts/SourceSansPro-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Sure Sans Pro";
+  src: url("/assets/fonts/SourceSansPro-Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: normal;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Source Code Pro", serif;
+  font-style: normal;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  min-width: 250px;
+  min-height: 250px;
+}
+
+* {
+  box-sizing: border-box;
+}

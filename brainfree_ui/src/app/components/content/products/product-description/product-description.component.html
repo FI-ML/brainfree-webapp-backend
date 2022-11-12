@@ -1,0 +1,21 @@
+<mat-dialog-content class="mat-typography">
+  <mat-toolbar>
+    <h1>{{product.name}}</h1>
+    <span class="fill-remaining-space"></span>
+    <button mat-icon-button mat-dialog-close tabindex="-1">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="description-container">
+
+    <div class="img-container">
+      <img src="assets/pictures/produkt-placeholder.png">
+    </div>
+    <div class="description-text-container">
+      <h2>Beschreibung</h2>
+      <h3>{{product.description}}</h3>
+    </div>
+  </div>
+</mat-dialog-content>
+

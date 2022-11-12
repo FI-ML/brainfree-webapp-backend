@@ -1,0 +1,44 @@
+<mat-card class="drop-shadow-xl rounded-xl ml-1 mr-3 mt-8 mb-2">
+  <mat-card-content>
+    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+
+      <div *ngIf="isMediumScreen" class="row-span-6">
+        <img class=" h-24 w-auto" src="assets/pictures/produkt-placeholder.png"
+             alt="image from {{item.name}}">
+      </div>
+
+      <div class="xl:col-span-4">
+        <mat-label class="text-xl">
+          <input class="bg-transparent truncate xl:w-screen" matInput [ngModel]="item.name"
+                 [disabled]='true'>
+        </mat-label>
+      </div>
+
+      <div>
+        <mat-label class="text-xl text-end decoration-4">
+          <input class="bg-transparent" matInput [ngModel]="getPrice()" [disabled]='true'>
+        </mat-label>
+      </div>
+
+      <div class="w-20">
+        <mat-form-field appearance="fill">
+          <mat-select [formControl]="controlQuantity" placeholder="{{item.quantity}}">
+            <mat-option
+              *ngFor="let quantity of getQuantitiesOption()"
+              (click)="setQuantity()"
+              [value]="quantity">
+              <p class="text-center">{{quantity}}</p>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button class="btn-delete" mat-mini-fab
+                (click)="deleteItemFromCart()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

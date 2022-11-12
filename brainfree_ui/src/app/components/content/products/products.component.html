@@ -1,0 +1,69 @@
+<app-loading-big-size [loadingText]="name" *ngIf="loadingState"></app-loading-big-size>
+<div *ngIf="products$ | async as products">
+  <div class="cards-header-container">
+    <div class="manage-product-container">
+      <button mat-fab *ngIf="isUserProductManager && !loadingState"
+              (click)="enableManageProductMode()">
+        <mat-icon class="add-product-icon"
+                  matTooltip="Produkt hinzufügen"
+                  matTooltipPosition="above">add
+        </mat-icon>
+      </button>
+    </div>
+
+
+    <div class="paginator-container" *ngIf="!isUserProductManager">
+      <div *ngIf="!loadingState && products.length > 5">
+        <mat-paginator [length]="products.length-1" class="paginator"
+                       [pageSize]="pageIndex"
+                       [pageSizeOptions]="[5,10,20,50,100]"
+                       (page)="OnPageChanged($event)"
+                       aria-label="Select page">
+        </mat-paginator>
+      </div>
+
+    </div>
+
+
+    <div class="paginator-container" *ngIf="isUserProductManager">
+      <div *ngIf="!loadingState && products.length > 5">
+        <mat-paginator [length]="products.length-1" class="paginator"
+                       [pageSize]="pageIndex"
+                       [pageSizeOptions]="[5,10,20,50,100]"
+                       (page)="OnPageChanged($event)"
+                       aria-label="Select page">
+        </mat-paginator>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="product-card-container">
+    <div *ngIf="isUserProductManager" class="manage-product-cards">
+      <ng-container *ngIf="isManageModeActive">
+        <app-product-manager
+          [isManageModeActive]="true"
+          [product]="getEmptyProduct()"
+          (enableManageMode)="disableManageProductMode($event)">
+        </app-product-manager>
+      </ng-container>
+
+      <ng-container>
+        <app-product-manager *ngFor="let product of productsSlice"
+                             [isManageModeActive]="false"
+                             [product]="product">
+        </app-product-manager>
+      </ng-container>
+
+    </div>
+    <div *ngIf="!isUserProductManager" class="user-product-cards">
+      <ng-container>
+        <app-product-user *ngFor="let product of productsSlice"
+                          [product]="product"
+                          (openProductDescriptionDialog)="openProductDescriptionDialog($event)">
+        </app-product-user>
+      </ng-container>
+    </div>
+  </div>
+</div>

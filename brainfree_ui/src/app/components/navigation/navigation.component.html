@@ -1,0 +1,77 @@
+<mat-toolbar>
+  <button mat-fab (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
+  <h1 class="company-name">brainfree</h1>
+
+</mat-toolbar>
+
+<mat-sidenav-container [class.isOpen]="sidenav.opened">
+
+  <mat-sidenav #sidenav="matSidenav">
+    <div *ngIf="(user$ | async)">
+      <mat-label>
+        <input matInput [ngModel]="getFullName()" [disabled]='true'>
+      </mat-label>
+    </div>
+
+    <div *ngIf="loadingState">
+      <app-loading-min-size></app-loading-min-size>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="button-container">
+      <button mat-fab class="menu-button"
+              (click)="openRoute('info')"
+              matTooltip="Info"
+              matTooltipPosition="right">
+        <mat-icon>info</mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="button-container">
+      <button mat-fab class="menu-button"
+              (click)="openUserKeycloakAccount()"
+              matTooltip="Account"
+              matTooltipPosition="right">
+        <mat-icon>person</mat-icon>
+      </button>
+
+      <button mat-fab class="menu-button"
+              (click)="openRoute('products')"
+              matTooltip="Produckt"
+              matTooltipPosition="right">
+        <mat-icon> list_alt</mat-icon>
+      </button>
+
+      <button mat-fab class="menu-button"
+              (click)="openRoute('shopping-cart')"
+              matTooltip="Warenkorb"
+              matTooltipPosition="right">
+        <mat-icon [matBadge]="counter">shopping_cart</mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="button-container">
+      <button mat-fab class="menu-button"
+              (click)="logout()"
+              matTooltip="Logout"
+              matTooltipPosition="right">
+        <mat-icon>power_settings_new
+        </mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

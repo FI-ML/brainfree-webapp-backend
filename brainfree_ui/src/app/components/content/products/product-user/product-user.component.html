@@ -1,0 +1,22 @@
+<ng-container>
+  <mat-card>
+    <div class="img-container">
+      <img mat-card-image src="assets/pictures/produkt-placeholder.png"
+           alt="Photo of product-collection as placeholder" (click)="openDescription()">
+    </div>
+    <mat-card-header (click)="openDescription()">
+      <p>{{product.name | slice: 0: 50}}{{product.name.length > 50 ? ' ...' : '' }}</p>
+    </mat-card-header>
+    <mat-card-content (click)="openDescription()">
+      <h2 class="price">{{getFormattedPrice(product.price)}}</h2>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-footer>
+      <button mat-fab
+              (click)="addProductToCart()">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+      <h4>Für {{product.priceAccording}}</h4>
+    </mat-card-footer>
+  </mat-card>
+</ng-container>

@@ -1,0 +1,45 @@
+/*color*/
+$primary-color: #031d2e;
+$second-color: #67475a;
+$hover-color: orange;
+
+$body_background: whitesmoke;
+
+$dirty-white: #fafafa;
+
+/*manipulation*/
+$shadow: 10px 6px 6px #756f6f;
+$boxShadow: 10px 10px 5px grey;
+$borderRadius: 1rem;
+
+
+/*border-underline*/
+$underlineColor: lightgrey;
+$underline: 1px solid $underlineColor;
+$underline-bold: 3px solid $underlineColor;
+
+
+.app-loading-big-size {
+  display: block;
+  margin-top: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+  font-size: 2rem;
+  align-items: center;
+  text-align: center;
+}
+
+.nav-button:hover {
+  background-color: $hover-color;
+  border-radius: 1rem;
+  width: 10%;
+  font-size: 1.2rem;
+}
+
+.nav-button {
+  background-color: transparent;
+  color: $primary-color;
+  font-size: 1rem;
+  border: transparent;
+}

@@ -1,0 +1,85 @@
+@import '../../../assets/variables.scss';
+
+
+mat-toolbar {
+  background: $primary-color;
+  color: white;
+}
+
+.company-name {
+  font-size: 30px;
+}
+
+.mat-sidenav {
+  margin: 16px;
+  width: 260px;
+  max-width: 350px;
+  border-right: none;
+  background: $primary-color;
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  align-items: center;
+
+  .mat-input-element:disabled {
+    width: 80%;
+    background-color: transparent;
+    font-size: 1.4rem;
+    color: white;
+    text-align: center;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    white-space: nowrap;
+    align-items: center;
+
+  }
+}
+
+.name {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: $second-color;
+}
+
+.isOpen .content {
+  margin-left: 2%;
+
+}
+
+.mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+.mat-fab.mat-accent {
+  background-color: transparent;
+  width: 4rem;
+  height: 4rem;
+
+  .mat-icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    font-size: 2rem;
+  }
+}
+
+::ng-deep .mat-tooltip {
+  background-color: $primary-color;
+  font-size: 14px;
+}
+
+.menu-button:hover {
+  background-color: $hover-color;
+}

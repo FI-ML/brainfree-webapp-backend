@@ -1,0 +1,15 @@
+<div class="flex justify-center mt-64">
+  <div class="flex-col">
+    <div class="grid justify-items-center">
+      <div>
+        <mat-spinner [diameter]="165"></mat-spinner>
+      </div>
+      <div class="mt-3">
+        <mat-label>
+          <input class="pl-24 bg-transparent text-4xl" matInput [ngModel]="getLoadingText()"
+                 [disabled]='true'>
+        </mat-label>
+      </div>
+    </div>
+  </div>
+</div>

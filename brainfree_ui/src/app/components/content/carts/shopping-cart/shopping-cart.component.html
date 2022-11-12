@@ -1,0 +1,26 @@
+<div class="w-full">
+  <app-loading-big-size [loadingText]="name" *ngIf="loadingState"></app-loading-big-size>
+
+
+  <div *ngIf="shoppingCart$ | async as shoppingCart">
+
+    <div *ngIf="shoppingCart.items.length < 1">
+      <app-cart-empty></app-cart-empty>
+    </div>
+
+    <div *ngIf="shoppingCart.items.length >= 1" class="mt-40">
+      <mat-card class="rounded-xl">
+        <mat-card-title class="pl-4">Your shopping-cart</mat-card-title>
+        <mat-card-content>
+          <app-shopping-cart-content (updateQuantity)="updateQuantity($event)"
+                                     (deleteItem)="removeItem($event)">
+
+          </app-shopping-cart-content>
+        </mat-card-content>
+        <mat-card-footer class="pl-4 pr-10 pb-4">
+          <app-shopping-cart-footer></app-shopping-cart-footer>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="6" author="Maximilian Lamm">
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="b4ed1d7d-b8ca-4152-8fdf-2c5ebd75a59e"/>
+            <column name="name" value="JavaScript Das umfassende Handbuch"/>
+            <column name="category" value="Book"/>
+            <column name="description"
+                    value="Ein umfassender Einstieg in JavaScript, viele praktische Beispiele und eine Darstellung auch
+                    von professionellen Techniken – das zeichnet dieses unverzichtbare Handbuch aus,
+                    JavaScript Das umfassende Handbuch"
+            />
+            <column name="price" value="49.90"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="OW-253225-M"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="0bcd5ff5-b5bc-4fa9-a556-3527e98c537d"/>
+            <column name="name" value="Ihr Weg zum java Profi"/>
+            <column name="description"
+                    value="Ihr Weg vom objektorientierten zum funktionalen Java Einstieg in
+                    die funktionale Programmierung Techniken, Muster und Best Practices
+                    für den Einsatz von funktionaler Programmierung in Java Mit vielen Code-Beispielen"
+            />
+            <column name="price" value="34.90"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="SX-244008-M"/>
+            <column name="category" value="Book"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="639d1f86-cbe0-4030-bbcf-2637c5639f44"/>
+            <column name="name" value="Spring Boot 2: Moderne Softwareentwicklung mit Spring 5"/>
+            <column name="description"
+                    value="Spring Boot hat seit 2014 das Spring-Ökosystem revolutioniert und verdrängt in zunehmendem Maße »klassische« Spring-Anwendungen."
+            />
+            <column name="price" value="36.90"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="CF-911772-M"/>
+            <column name="category" value="Book"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="7e0aab4e-8171-4ca9-a6f7-c605176e4ffb"/>
+            <column name="name" value="KitchenAid P18 Starter-Set + 1 Zubehör"/>
+            <column name="description"
+                    value="Die Küchenmaschine Artisan 5KSM175* (Farbe frei wählbar!) garantiert dank ausgefeilter Funktionen, robuster Metallkonstruktion und einer Ansatznabe zum Anbringen zahlreicher Zubehörteile professionelle Ergebnisse."
+            />
+            <column name="price" value="699.00"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="XO-743476-Z"/>
+            <column name="category" value="Electronic"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="7d327744-4890-48d4-8035-dd52c95e0e4e"/>
+            <column name="name" value="Vanille-Eiscreme mit Schoko Glasur"/>
+            <column name="description"
+                    value="Waffelhörnchen Vanille-Nuss"
+            />
+            <column name="price" value="1.12"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="QH-77578-E"/>
+            <column name="category" value="Food"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="5fb40d9d-08c5-474e-9bf2-9f9dafbfb854"/>
+            <column name="name" value="Golden Toast American Sandwich"/>
+            <column name="description"
+                    value="Einfach nur unglaublich soft. Für das American Sandwich von Golden Toast wird Natursauerteig ||
+     verwendet, dadurch ist es extrasoft und unverwechselbar im Geschmack. ||
+     Das ideale Sandwich für leckere Snacks."
+            />
+            <column name="price" value="2.39"/>
+            <column name="price_according" value="1 KG"/>
+            <column name="article_number" value="PO-460823-L"/>
+            <column name="category" value="Food"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="03ab29f5-2c88-4b3d-ac6b-a20b3b4abdf2"/>
+            <column name="name" value="Mango - Bio"/>
+            <column name="description"
+                    value="Köstliche Mango aus Bioanbau"
+            />
+            <column name="price" value="1.99"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="TR-144213-M"/>
+            <column name="category" value="Food"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+        <insert catalogName="products"
+                dbms="postgresql"
+                schemaName="public"
+                tableName="products">
+            <column name="id" value="a9078169-25cd-4208-b38b-87405657c4a9"/>
+            <column name="name" value="Sitzgruppe Goon II (3-teilig)"/>
+            <column name="description"
+                    value="Aluminium / Pollyrattan - Anthrazit Longchair davorstehend rechts"
+            />
+            <column name="price" value="349.99"/>
+            <column name="price_according" value="1 Stk."/>
+            <column name="article_number" value="WL-834961-W"/>
+            <column name="category" value="Home and Garden"/>
+            <column name="created_date" valueDate="now()"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

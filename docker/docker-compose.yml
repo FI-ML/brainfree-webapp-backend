@@ -1,0 +1,87 @@
+version: '3'
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  backend:
+  frontend:
+
+services:
+  proxy:
+    build: .
+    depends_on:
+      - keycloak_prod
+      - brainfree-prod-server
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: proxy
+    hostname: proxy
+    networks:
+      - backend
+      - frontend
+
+  keycloak_prod:
+    image: jboss/keycloak:16.1.0
+    env_file: keycloak.env
+    hostname: keycloak_prod
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../keycloak/imports:/opt/jboss/keycloak/imports
+    restart: on-failure
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - keycloak_prod_db
+
+  keycloak_prod_db:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    env_file: keycloak.env
+    restart: on-failure
+    networks:
+      - backend
+
+
+  brainfree-container:
+    image: docker.pkg.github.com/fi-ml/brainfree-webapp/backend:sha-418cb08
+    container_name: brainfree-prod-server
+    env_file: brainfree.env
+    volumes:
+      - ./sql/create_productTable.sql:/docker-entrypoint-initdb.d/create_product_table.sql
+      - ./sql/insert_products.sql:/docker-entrypoint-initdb.d/insert_products.sql
+    hostname: brainfree_backend
+    restart: on-failure
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - brainfree-prod-db
+
+
+  brainfree-prod-db:
+    image: 'kartoza/postgis:13-3.1'
+    container_name: brainfree-prod-db
+    env_file: postgres.env
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: on-failure
+    networks:
+      - backend
+
+
+  portainer:
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer:/data
+    image: portainer/portainer-ce
+    hostname: portainer
+    container_name: portainer
+    networks:
+      - backend

@@ -1,0 +1,84 @@
+<ng-container *ngIf="product">
+  <mat-card
+    [matTooltip]="product.name"
+    matTooltipPosition="above">
+
+    <form [formGroup]="productFormGroup">
+      <img mat-card-image src="assets/pictures/produkt-placeholder.png"
+           alt="Photo of product-collection as placeholder">
+      <mat-card-header>
+        <mat-form-field floatLabel="auto">
+          <mat-label>Product Name</mat-label>
+          <textarea matInput
+                    [formControl]="controlName">
+         </textarea>
+        </mat-form-field>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field *ngIf="!isManageModeActive">
+          <mat-label>Kategorie</mat-label>
+          <input matInput type="text"
+                 [formControl]="controlCategory"/>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="auto" *ngIf="isManageModeActive">
+          <mat-label>Kategorie</mat-label>
+          <input matInput type="text"
+                 [formControl]="controlCategory"
+                 [matAutocomplete]="auto"
+                 required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let cat of filteredCategories | async" [value]="cat">
+              {{cat}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!--description-->
+        <mat-form-field floatLabel="auto">
+          <mat-label>Beschreibung</mat-label>
+          <textarea matInput
+                    [formControl]="controlDescription">
+         </textarea>
+        </mat-form-field>
+
+        <!--price-->
+        <mat-form-field floatLabel="auto">
+          <mat-label>Preis</mat-label>
+          <input type="text" matInput [formControl]="controlPrice">
+        </mat-form-field>
+
+        <!-- priceAccording  -->
+        <mat-form-field floatLabel="auto">
+          <mat-label>Preis nach</mat-label>
+          <input type="text" matInput [formControl]="controlPriceAccording">
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <mat-card-actions *ngIf="!isManageModeActive">
+        <button mat-fab class="btn-actions"
+                (click)="updateProduct()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-fab class="btn-actions btn-right"
+                (click)="addProductToCart()">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </mat-card-actions>
+
+      <mat-card-actions *ngIf="isManageModeActive">
+        <button mat-fab class="btn-actions"
+                (click)="updateOrCreateProduct()">
+          <mat-icon>check</mat-icon>
+        </button>
+
+        <button mat-fab class="btn-actions btn-right"
+                (click)="disableProductManageMode()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+</ng-container>

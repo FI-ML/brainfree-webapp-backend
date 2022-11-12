@@ -1,0 +1,10 @@
+<div class="mt-5">
+  <cdk-virtual-scroll-viewport appendOnly itemSize="130" style="height: 62vh;
+          width: calc(100% - 10px);">
+    <div *cdkVirtualFor="let item of items" class="item">
+      <app-shopping-cart-item (updateQuantity)="setQuantity($event)"
+                              (deleteItem)="removeItem($event)"
+                              [item]="item"></app-shopping-cart-item>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

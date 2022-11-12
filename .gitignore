@@ -1,0 +1,19 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.jpb
+./ui/ui.iml
+brf.iml
+./deployment/brainfree/dist
+
+server/target
+
+### deployment ####
+/deployment/ssl/
+/docker/ssl/
+/frontend/webapp.iml
+/*/target
+
+/brainfree_ui/package-lock.json

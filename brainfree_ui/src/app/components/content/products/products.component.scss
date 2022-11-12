@@ -1,0 +1,133 @@
+@import 'src/assets/variables';
+
+
+.mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  width: 90%;
+  background-color: $body_background;
+}
+
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+  font-size: 18px;
+}
+
+.cards-header-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-top: .2%;
+
+
+  .manage-product-container > button {
+    width: 6rem;
+    height: 6rem;
+
+    .add-product-icon {
+      background-repeat: no-repeat;
+      display: inline-block;
+      height: 60px;
+      width: 60px;
+      font-size: 4rem;
+    }
+  }
+
+  .mat-paginator-container {
+    background-color: $dirty-white;
+  }
+
+  .paginator-container {
+    margin-right: 16%;
+  }
+
+}
+
+
+.product-card-container {
+  margin-top: 2%;
+  margin-left: 4%;
+  margin-right: 10%;
+  min-width: 280px;
+  max-width: inherit;
+  width: 80%;
+  height: 90%;
+
+  .manage-product-cards {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 40px;
+  }
+
+  .user-product-cards {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 50px;
+  }
+
+  app-product-manager {
+    flex-shrink: 5;
+  }
+}
+
+.mat-fab.mat-accent:hover {
+  background-color: $hover-color;
+}
+
+.mat-fab.mat-accent {
+  background-color: $second-color;
+}
+
+::-webkit-scrollbar {
+  margin-left: .2%;
+  width: 4px;
+  overflow-y: scroll;
+  background: $second-color;
+  border-radius: 2rem;
+}
+
+@media (max-width: 605px) {
+  .product-card-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .product-card-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 430px) {
+  .product-card-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 300px) {
+  .product-card-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+    font-size: 8px;
+  }
+}

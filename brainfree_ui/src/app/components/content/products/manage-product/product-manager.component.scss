@@ -1,0 +1,98 @@
+@import 'src/assets/variables';
+
+
+.mat-card {
+  width: 28rem;
+  min-height: 280px;
+  margin-bottom: 5%;
+  border-radius: 45px;
+
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: auto;
+  }
+
+  form {
+    margin-left: .5rem;
+
+    .mat-form-field {
+      margin: 0;
+      padding: 0;
+      width: 75%;
+
+      .mat-form-field-underline {
+        display: none;
+      }
+
+      .mat-input-element {
+        padding: 0;
+        min-height: 12px;
+        font-size: 17px
+      }
+    }
+  }
+
+  .mat-card-header {
+    padding-top: 5%;
+    height: 2.1%;
+  }
+
+  .mat-card-content {
+    font-size: 1.2rem;
+    padding-left: 2rem;
+    width: 100%;
+
+    .mat-form-field {
+      width: 80%;
+    }
+  }
+
+  .mat-card-actions {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 1rem;
+
+    .btn-mat-action {
+      width: 4rem;
+      height: 4rem;
+      background-color: $second-color;
+    }
+
+
+    .btn-right {
+      margin-right: 10%;
+    }
+
+    .isUserInRoleProductManger {
+      .btn-add-sc {
+        margin-left: 2%;
+        float: left;
+      }
+    }
+
+    .btn-mat-action:hover {
+      background-color: $hover-color;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.mat-tooltip {
+  font-size: 1rem;
+  background-color: #212432;
+}
+
+.mat-card:hover {
+  box-shadow: 10px 10px 5px grey;
+}
+
+::-webkit-scrollbar {
+  margin-left: .2%;
+  width: 4px;
+  overflow-y: scroll;
+  background: blue;
+  border-radius: 1rem;
+}
