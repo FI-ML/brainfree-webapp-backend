@@ -7,7 +7,6 @@ on:
 jobs:
   brainfree-webapp-backend:
     runs-on: ubuntu-latest
-    packages: write
     steps:
       - name: brainfree webapp backend
         id: build-and-push
@@ -24,7 +23,6 @@ jobs:
 
   brainfree-webapp-ui:
     runs-on: ubuntu-latest
-    packages: write
     steps:
       - name: brainfree webapp ui
         id: build-and-push
