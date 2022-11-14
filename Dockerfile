@@ -12,6 +12,6 @@ RUN mvn clean install
 #
 # Package stage
 #
-FROM amazoncorretto:17
+FROM amazoncorretto:19
 COPY --from=BUILD /tmp/brainfree_rest/target/brainfree.jar app.jar
 ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod", "app.jar"]
