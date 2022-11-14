@@ -35,7 +35,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GIT_AUTH_TOKEN }}
           registry: docker.pkg.github.com
-          repository: fi-ml/brainfree-webapp/tree/master/brainfree_ui
+          repository: fi-ml/brainfree-webapp/tree/main/brainfree_ui
           tag_with_sha: false
           tag_with_ref: true
 
