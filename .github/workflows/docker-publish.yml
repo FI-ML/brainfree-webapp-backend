@@ -15,7 +15,7 @@ jobs:
         uses: docker/build-push-action@v3.2.0
         with:
           push: true
-          tags: user/backend:latest
+          tags: fi-ml/backend:latest
           username: ${{ github.actor }}
           password: ${{ secrets.GIT_AUTH_TOKEN }}
           registry: docker.pkg.github.com
