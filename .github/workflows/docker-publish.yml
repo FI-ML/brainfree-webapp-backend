@@ -8,18 +8,16 @@ jobs:
   brainfree-webapp-backend:
     runs-on: ubuntu-latest
     steps:
-      - name: brainfree webapp backend
-        id: build-and-push
+      - name: Checkout
         uses: actions/checkout@v3.1.0
-      
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
         with:
           # list of Docker images to use as base name for tags
           images: |
-            brainfree-webapp/backend
-            ghcr.io/fi-ml/brainfree-webapp
+            ghcr.io/${{ github.repository  }}
           # generate Docker tags based on the following events/attributes
           tags: |
             type=schedule
