@@ -1,8 +1,0 @@
-{
-  "/brainfree": {
-    "target": "http://localhost:8087",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "info"
-  }
-}
