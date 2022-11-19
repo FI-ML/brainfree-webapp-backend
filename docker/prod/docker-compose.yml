@@ -12,19 +12,22 @@ services:
   proxy:
     build: .
     depends_on:
-      - keycloak_prod
-      - brainfree-prod-server
+      - keycloak_prod-container
+      - brainfree-backend-container
+      - brainfree-frontend-container
     ports:
       - "80:80"
       - "443:443"
     container_name: proxy
     hostname: proxy
+    volumes:
+      - ./src:/usr/share/nginx/html
     networks:
       - backend
       - frontend
 
-  keycloak_prod:
-    image: jboss/keycloak:16.1.0
+  keycloak_prod-container:
+    image: jboss/keycloak:16.1.1
     env_file: keycloak.env
     hostname: keycloak_prod
     ports:
@@ -47,22 +50,28 @@ services:
     networks:
       - backend
 
-
-  brainfree-container:
-    image: docker.pkg.github.com/fi-ml/brainfree-webapp/backend:sha-418cb08
+  brainfree-backend-container:
+    image: docker.pkg.github.com/fi-ml/brainfree-webapp-backend/backend:sha-362c993
     container_name: brainfree-prod-server
     env_file: brainfree.env
     volumes:
       - ./sql/create_productTable.sql:/docker-entrypoint-initdb.d/create_product_table.sql
       - ./sql/insert_products.sql:/docker-entrypoint-initdb.d/insert_products.sql
     hostname: brainfree_backend
-    restart: on-failure
     networks:
       - backend
       - frontend
     depends_on:
       - brainfree-prod-db
+    restart: on-failure
 
+  brainfree-frontend-container:
+    image: docker.pkg.github.com/fi-ml/brainfree_webapp_ui/frontend:sha-a74b5f1
+    container_name: brainfree-frontend-server
+    ports:
+      - "8081:80"
+    networks:
+      - frontend
 
   brainfree-prod-db:
     image: 'kartoza/postgis:13-3.1'
@@ -72,7 +81,7 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     restart: on-failure
     networks:
-      - backend
+      - frontend
 
 
   portainer:
