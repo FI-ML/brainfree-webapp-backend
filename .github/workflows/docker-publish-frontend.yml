@@ -41,7 +41,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GIT_AUTH_TOKEN  }}
-
+          file: ./brainfree_ui/Dockerfile
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
