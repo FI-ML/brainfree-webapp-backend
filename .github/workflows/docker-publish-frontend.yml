@@ -32,6 +32,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          push:   ${{ github.event_name != 'pull_request' }}
+          tags:   ${{ github.repository_owner }}/app:latest
           labels: ${{ steps.meta.outputs.labels }}
