@@ -1,7 +1,7 @@
-FROM nginx:1.19.6
+FROM nginx:stable
 
 #  default conf for proxy service
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY proxy.conf /etc/nginx/conf.d/proxy.conf
 
 
 #  Proxy and SSL configurations

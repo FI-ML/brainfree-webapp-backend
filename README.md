@@ -55,7 +55,7 @@ If you have any criticism or suggestions, or even if you find a bug, I would be 
 
 ### [Backend](/brainfree-rest/README.md)
 
-### [UI](/frontend/README.md)
+### [UI](/https://github.com/FI-ML/brainfree-webapp-ui/blob/main/README.md)
 
 ## Setup-Guide
 

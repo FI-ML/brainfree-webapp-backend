@@ -1,0 +1,27 @@
+version: '3.8'
+
+networks:
+  web:
+    external: true
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    hostname: portainer
+    restart: always
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - ./data:/data
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.portainer_service.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
+      - "traefik.http.routers.portainer.service=portainer_service"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.brainfree.eu`)"
+      - "traefik.http.routers.portainer.tls=true"
+      - "traefik.http.routers.portainer.tls.certresolver=lets-encrypt"
+      - "traefik.port=9000"
+
