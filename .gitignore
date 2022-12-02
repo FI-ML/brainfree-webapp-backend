@@ -17,3 +17,5 @@ server/target
 /*/target
 
 /brainfree_ui/package-lock.json
+/docker/prod/certbot/
+/docker/prod/postgres-data/
