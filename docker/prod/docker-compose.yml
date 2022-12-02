@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 volumes:
   mysql_data:
@@ -7,39 +7,36 @@ volumes:
 networks:
   backend:
   frontend:
+  web:
+    external: true
+
+
 
 services:
-  proxy:
-    build: .
-    depends_on:
-      - keycloak_prod-container
-      - brainfree-backend-container
-      - brainfree-frontend-container
-    ports:
-      - "80:80"
-      - "443:443"
-    container_name: proxy
-    hostname: proxy
-    volumes:
-      - ./src:/usr/share/nginx/html
-    networks:
-      - backend
-      - frontend
 
   keycloak_prod-container:
     image: jboss/keycloak:16.1.1
     env_file: keycloak.env
     hostname: keycloak_prod
-    ports:
-      - "8080:8080"
     volumes:
       - ../keycloak/imports:/opt/jboss/keycloak/imports
     restart: on-failure
     networks:
       - backend
       - frontend
+      - web
     depends_on:
       - keycloak_prod_db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.keycloak_backend_service.loadbalancer.server.port=8080"
+      - "traefik.http.routers.keycloak_backend.service=keycloak_backend_service"
+
+      - "traefik.http.routers.keycloak_backend.entrypoints=websecure"
+      - "traefik.http.routers.keycloak_backend.rule=(Host(`brainfree.eu`) && PathPrefix(`/auth/`) || Host(`keycloak.brainfree.eu`))"
+      - "traefik.http.routers.keycloak_backend.tls=true"
+      - "traefik.http.routers.keycloak_backend.tls.certresolver=lets-encrypt"
+      - "traefik.port=8080"
 
   keycloak_prod_db:
     image: mysql:5.7
@@ -51,7 +48,7 @@ services:
       - backend
 
   brainfree-backend-container:
-    image: docker.pkg.github.com/fi-ml/brainfree-webapp-backend/backend:sha-362c993
+    image: ghcr.io/fi-ml/brainfree-webapp-backend/backend:sha-362c993
     container_name: brainfree-prod-server
     env_file: brainfree.env
     volumes:
@@ -61,17 +58,54 @@ services:
     networks:
       - backend
       - frontend
+      - web
     depends_on:
       - brainfree-prod-db
     restart: on-failure
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.brainfree_backend_service.loadbalancer.server.port=80"
+      - "traefik.http.routers.brainfree_backend.service=brainfree_backend_service"
+
+      - "traefik.http.routers.brainfree_backend.entrypoints=websecure"
+      - "traefik.http.routers.brainfree_backend.rule=Host(`brainfree.eu`) && PathPrefix(`/brainfree`)"
+      - "traefik.http.routers.brainfree_backend.tls=true"
+      - "traefik.http.routers.brainfree_backend.tls.certresolver=lets-encrypt"
+      - "traefik.port=80"
 
   brainfree-frontend-container:
-    image: docker.pkg.github.com/fi-ml/brainfree_webapp_ui/frontend:sha-a74b5f1
+    image: ghcr.io/fi-ml/brainfree-webapp-ui/frontend:sha-597ee7e
     container_name: brainfree-frontend-server
-    ports:
-      - "8081:80"
     networks:
       - frontend
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.brainfree_frontend_service.loadbalancer.server.port=80"
+      - "traefik.http.routers.brainfree_frontend.service=brainfree_frontend_service"
+
+      - "traefik.http.routers.brainfree_frontend.entrypoints=websecure"
+      - "traefik.http.routers.brainfree_frontend.rule=(Host(`brainfree.eu`) || Host(`www.brainfree.eu`))"
+      - "traefik.http.routers.brainfree_frontend.tls=true"
+      - "traefik.http.routers.brainfree_frontend.tls.certresolver=lets-encrypt"
+      - "traefik.port=80"
+
+  brainfree-product-insert-service:
+      image: ghcr.io/fi-ml/brainfree_product_insert_service:sha-a906312
+      container_name: brainfree-product-insert-service
+      restart: on-failure
+      networks:
+        - web
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.services.brainfree_product_insert_service.loadbalancer.server.port=7090"
+        - "traefik.http.routers.brainfree_product_insert.service=brainfree_product_insert_service"
+
+        - "traefik.http.routers.brainfree_product_insert.entrypoints=websecure"
+        - "traefik.http.routers.brainfree_product_insert.rule=Host(`insert.brainfree.eu`)"
+        - "traefik.http.routers.brainfree_product_insert.tls=true"
+        - "traefik.http.routers.brainfree_product_insert.tls.certresolver=lets-encrypt"
+        - "traefik.port=7090"
 
   brainfree-prod-db:
     image: 'kartoza/postgis:13-3.1'
@@ -82,15 +116,3 @@ services:
     restart: on-failure
     networks:
       - frontend
-
-
-  portainer:
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./portainer:/data
-    image: portainer/portainer-ce
-    hostname: portainer
-    container_name: portainer
-    networks:
-      - backend
