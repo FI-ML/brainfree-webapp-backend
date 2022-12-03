@@ -23,7 +23,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <keycloak.version>19.0.3</keycloak.version>
         <brainfree.version>${project.version}</brainfree.version>
-        <spring.version>2.7.5 </spring.version>
+        <spring.version>3.0.0</spring.version>
     </properties>
 
     <dependencies>
