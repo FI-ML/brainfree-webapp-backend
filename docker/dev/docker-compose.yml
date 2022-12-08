@@ -1,63 +1,76 @@
-version: '3'
-
-volumes:
-  mysql_data:
-    driver: local
-  postgres_data:
-    driver: local
-
-networks:
-  keycloak-brainfree:
-
+version: '3.8'
 services:
 
-  keycloak_dev:
-    image: jboss/keycloak:16.1.1
-    environment:
-      DB_VENDOR: MYSQL
-      DB_ADDR: keycloak_dev_db
-      DB_DATABASE: keycloak
-      DB_USER: keycloak
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
-      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/brainfree-realm.json
-    ports:
-      - "8080:8080"
-    volumes:
-      - ../keycloak/imports:/opt/jboss/keycloak/imports
-    depends_on:
-      - keycloak_dev_db
-    networks:
-      - keycloak-brainfree
-    restart: on-failure
-
-  keycloak_dev_db:
-    image: mysql:8.0.29-debian
-    volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloak
-      MYSQL_PASSWORD: password
-    networks:
-      - keycloak-brainfree
-    restart: on-failure
-
   brainfree_dev_db:
-    image: 'kartoza/postgis:13-3.1'
+    image: postgres:15-alpine
     container_name: brainfree_dev_db
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=brainfree_dev_db
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=123#qwer
-      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       - ../sql/create_product_table.sql:/docker-entrypoint-initdb.d/create_product_table.sql
       - ../sql/insert_products.sql:/docker-entrypoint-initdb.d/insert_products.sql
-    restart: on-failure
+    environment:
+      - POSTGRES_DB= brainfree_dev_db
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=123#note
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U docker -d brainfree_dev_db' ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.1
+    environment:
+      - DB_VENDOR=postgres
+      - DB_ADDR=keycloak_dev_db
+      - DB_DATABASE=keycloak
+      - DB_SCHEMA=public
+      - DB_USER=keycloak
+      - DB_PASSWORD=changeMe
+      - KC_HOSTNAME=localhost
+      - ROOT_LOGLEVEL=DEBUG
+      - REDIRECT_SOCKET=proxy-https
+      - KEYCLOAK_LOGLEVEL=DEBUG
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=Pa55w0rd
+    command:
+      - start-dev
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    networks:
+      - keycloak-network
+    depends_on:
+      - keycloak_dev_db
+
+  keycloak_dev_db:
+    image: postgres:15-alpine
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: changeMe
+    ports:
+      - '5000:5000'
+    networks:
+      - keycloak-network
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U keycloak -d keycloak' ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  keycloak-network:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  keycloak-db-data:
+    driver: local
