@@ -36,7 +36,7 @@ VALUES
 /**/
 
     ('7d327744-4890-48d4-8035-dd52c95e0e4e', 'Vanille-Eiscreme mit Schoko Glasur', 'Waffelhörnchen Vanille-Nuss',
-     1.12, '1 Stk.', 'QH-77578-E', 'Food', '2022-06-29 22:50:44.425758', null),
+     1.12, '1 Stk.', 'QH-775728-E', 'Food', '2022-06-29 22:50:44.425758', null),
 
 /**/
 

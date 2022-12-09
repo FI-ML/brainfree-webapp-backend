@@ -9,9 +9,9 @@ services:
       - ../sql/create_product_table.sql:/docker-entrypoint-initdb.d/create_product_table.sql
       - ../sql/insert_products.sql:/docker-entrypoint-initdb.d/insert_products.sql
     environment:
-      - POSTGRES_DB= brainfree_dev_db
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=123#note
+      POSTGRES_DB: brainfree_dev_db
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: 123#note
     ports:
       - '5432:5432'
     healthcheck:
@@ -20,6 +20,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+
 
   keycloak:
     image: quay.io/keycloak/keycloak:20.0.1
@@ -54,8 +55,6 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: changeMe
-    ports:
-      - '5000:5000'
     networks:
       - keycloak-network
     healthcheck:
